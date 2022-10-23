@@ -1,0 +1,59 @@
+---
+# LLVM Defaults.
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+---
+Language: Cpp
+Standard: c++20
+
+# A
+AccessModifierOffset: -4
+AlignConsecutiveAssignments: true
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AllowAllArgumentsOnNextLine: true
+AllowAllConstructorInitializersOnNextLine: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AlwaysBreakAfterReturnType: None
+AlwaysBreakTemplateDeclarations: Yes
+
+# B
+BinPackArguments: false
+BinPackParameters: false
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterExternBlock: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+
+# C
+ColumnLimit: 120
+
+# I
+IncludeBlocks: Regroup
+IndentWrappedFunctionNames: true
+
+# O
+ObjCBlockIndentWidth: 4
+
+# P
+PointerAlignment: Left
+
+# S
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: false
+SpaceBeforeInheritanceColon: false
+SpacesInContainerLiterals: false
+---

@@ -1,13 +1,12 @@
-#include "saxpy.cuh"
+#include "cuda/device_info.hh"
+#include "cuda/kernels/add.cu.hh"
 
-// #include <cuda.h>
-// #include <cuda_runtime.h>
 #include <iostream>
 
 int main(int argc, char* argv[])
 {
-
-    cuda::print_info();
+    cuda::print_devices();
+    cuda::add();
 
     return 0;
 }

@@ -1,45 +1,14 @@
-#include "saxpy.cuh"
+#include "cuda/device_info.hh"
 
-// #include <cuda.h>
+#include "cuda/macros.hh"
+
+#include <cuda_runtime.h>
 #include <iostream>
-#include <stdio.h>
-// #include <cuda_runtime.h>
 
 namespace cuda
 {
-namespace
-{
 
-#define CUDA_ASSERT(err_n) cuda_assert(err_n, true, __FILE__, __LINE__);
-inline void cuda_assert(cudaError_t err_n, bool terminate, const char* filename, int lineno)
-{
-    if (err_n == cudaSuccess)
-    {
-        return;
-    }
-
-    std::cerr << filename << ": " << lineno << std::endl
-              << cudaGetErrorName(err_n) << ": " << std::endl
-              << cudaGetErrorString(err_n) << std::endl;
-
-    if (terminate)
-    {
-        std::exit(EXIT_FAILURE);
-    }
-}
-
-// __global__ void saxpy(size_t n, const float a, const float* x, float* y)
-// {
-//     size_t i = blockIdx.x * blockDim.x + threadIdx.x;
-//     if (i < n)
-//     {
-//         y[i] = a * x[i] + y[i];
-//     }
-// }
-
-} // namespace
-
-void print_info()
+void print_devices()
 {
     // Show CUDA version.
     int driver_version  = -1;

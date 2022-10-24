@@ -3,6 +3,6 @@
 namespace cuda
 {
 
-void print_info();
+void add();
 
 } // namespace cuda

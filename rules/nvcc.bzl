@@ -2,8 +2,8 @@ load("@bazel_tools//tools/cpp:toolchain_utils.bzl", "find_cpp_toolchain")
 load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "CPP_COMPILE_ACTION_NAME")
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
-HDR_FILES = [".h", ".hh", ".hpp", ".inc", ".inl", ".cuh"]
-SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu"]
+HDR_FILES = [".h", ".hh", ".hpp", ".inc", ".inl", ".cuh", ".cu.hh"]
+SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
 
 NVCC_COPTS = [
     "--compile",

@@ -1,3 +1,5 @@
+load("@//rules:nvcc.bzl", "nvcc_test")
+
 filegroup(
     name = "toolchain",
     srcs = [
@@ -28,4 +30,14 @@ cc_library(
     includes = ["include/"],
     linkopts = ["-Wl,-rpath=lib64/"],
     visibility = ["//visibility:public"],
+)
+
+nvcc_test(
+    name = "cuda_test",
+    srcs = [
+        "cuda_test.cc",
+        "test_kernel.cu",
+    ],
+    hdrs = ["test_kernel.cuh"],
+    deps = ["@gtest//:gtest_main"],
 )

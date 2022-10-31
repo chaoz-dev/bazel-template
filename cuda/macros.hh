@@ -6,7 +6,7 @@
 namespace cuda
 {
 
-#define CUDA_ASSERT(err_n) cuda_assert(err_n, true, __FILE__, __LINE__);
+#define CUDA_ASSERT(err_n) ::cuda::cuda_assert(err_n, true, __FILE__, __LINE__);
 inline void cuda_assert(cudaError_t err_n, bool terminate, const char* filename, int lineno)
 {
     if (err_n == cudaSuccess)

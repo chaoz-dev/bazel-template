@@ -3,6 +3,5 @@ cc_binary(
     srcs = ["main.cc"],
     deps = [
         "//cuda:device_info",
-        "//cuda/kernels:add",
     ],
 )

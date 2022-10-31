@@ -1,6 +1,6 @@
 load("@bazel_tools//tools/cpp:toolchain_utils.bzl", "find_cpp_toolchain")
 load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "CPP_COMPILE_ACTION_NAME")
-load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 
 HDR_FILES = [".h", ".hh", ".hpp", ".inc", ".inl", ".cuh", ".cu.hh"]
 SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
@@ -168,6 +168,25 @@ def nvcc_library(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_co
         name = name,
         srcs = [nvcc_lib] if srcs else [],
         hdrs = hdrs,
+        linkopts = CC_LINKOPTS,
+        deps = deps + ["@cuda"],
+    )
+
+def nvcc_test(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts = []):
+    nvcc_lib = "_nvcc_" + name
+
+    _nvcc_library(
+        name = nvcc_lib,
+        srcs = srcs,
+        hdrs = hdrs,
+        deps = deps + ["@cuda"],
+        host_copts = host_copts,
+        nvcc_copts = nvcc_copts + NVCC_COPTS,
+    )
+
+    cc_test(
+        name = name,
+        srcs = [nvcc_lib] if srcs else [],
         linkopts = CC_LINKOPTS,
         deps = deps + ["@cuda"],
     )

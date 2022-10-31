@@ -1,2 +1,5 @@
 # Use toolchain resolution to find the cc toolchain.
 build --incompatible_enable_cc_toolchain_resolution
+
+# Always show all test outputs.
+test --test_output=all

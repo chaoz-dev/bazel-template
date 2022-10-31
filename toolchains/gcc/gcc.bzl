@@ -17,31 +17,29 @@ COMPILER_FLAGS = [
     "-std=c++17",
     "-fno-omit-frame-pointer",
     "-fno-canonical-system-headers",
-    # Warnings and errors.
+    # General warnings and errors.
     "-Wall",
     "-Werror",
-    # Extra warnings and errors.
+    # Specific warnings and errors.
     "-Wcast-align",
     "-Wcast-qual",
     "-Wconversion",
     "-Wfloat-equal",
     "-Wformat=2",
-    "-Wno-free-nonheap-object",
-    "-Wno-noexcept-type",
     "-Wpointer-arith",
     "-Wshadow",
-    # "-Wstrict-prototypes",
-    "-Wswitch-default",
-    "-Wswitch-enum",
-    "-Wundef",
     "-Wuninitialized",
     "-Wunreachable-code",
     "-Wunused-but-set-parameter",
     "-Wwrite-strings",
+    # Disabled warnings and errors.
+    "-Wno-free-nonheap-object",
+    "-Wno-noexcept-type",
 ]
 
 LINKER_FLAGS = [
     "-lstdc++",
+    "-lm",
 ]
 
 TOOL_PATHS = [

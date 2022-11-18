@@ -1,1 +1,1 @@
-# CUDA Bazel Template
+# Bazel Template

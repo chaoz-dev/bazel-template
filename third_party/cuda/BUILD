@@ -1,6 +1,13 @@
 load("@//rules:nvcc.bzl", "nvcc_test")
 
 filegroup(
+    name = "nvcc",
+    srcs = ["bin/nvcc"],
+    data = [":toolchain"],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
     name = "toolchain",
     srcs = [
         "nvvm/bin/cicc",
@@ -9,13 +16,6 @@ filegroup(
     ]) + glob([
         "bin/*",
     ]),
-    visibility = ["//visibility:public"],
-)
-
-filegroup(
-    name = "nvcc",
-    srcs = ["bin/nvcc"],
-    data = [":toolchain"],
     visibility = ["//visibility:public"],
 )
 

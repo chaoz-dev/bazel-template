@@ -36,8 +36,6 @@ nvcc_test(
     name = "cuda_test",
     srcs = [
         "cuda_test.cc",
-        "test_kernel.cu",
     ],
-    hdrs = ["test_kernel.cuh"],
     deps = ["@gtest//:gtest_main"],
 )

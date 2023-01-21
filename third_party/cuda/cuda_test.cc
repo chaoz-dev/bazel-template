@@ -1,8 +1,14 @@
-#include "third_party/cuda/test_kernel.cuh"
-
 #include <algorithm>
 #include <cuda_runtime.h>
 #include <gtest/gtest.h>
+
+__global__ void add(int n, float* x, float* y)
+{
+    for (int i = 0; i < n; ++i)
+    {
+        y[i] = x[i] + y[i];
+    }
+}
 
 TEST(Cuda, DeviceCheck)
 {
@@ -28,7 +34,7 @@ TEST(Cuda, KernelCheck)
         y[i] = 2.0f;
     }
 
-    third_party::cuda::add<<<1, 1>>>(N, x, y);
+    add<<<1, 1>>>(N, x, y);
 
     ASSERT_EQ(cudaDeviceSynchronize(), cudaSuccess);
 

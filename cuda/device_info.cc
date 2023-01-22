@@ -1,14 +1,9 @@
-#include "cuda/device_info.hh"
-
 #include "cuda/macros.hh"
 
 #include <cuda_runtime.h>
 #include <iostream>
 
-namespace cuda
-{
-
-void print_devices()
+int main(int argc, char* argv[])
 {
     // Show CUDA version.
     int driver_version  = -1;
@@ -35,11 +30,11 @@ void print_devices()
         std::cout << "  Compute capability: " << device.major << "." << device.minor << std::endl;
         std::cout << "  Device clock rate: " << device.clockRate / 1.0e3 << " MHz" << std::endl;
         std::cout << "  Device memory: " << static_cast<float>(device.totalGlobalMem) / 1.0e9 << " GB" << std::endl;
-        std::cout << "  Memory clock rate (effective): " << device.memoryClockRate / 1.0e3 << " MHz" << std::endl;
+        std::cout << "  Memory clock rate: " << device.memoryClockRate / 1.0e3 << " MHz" << std::endl;
         std::cout << "  Memory bus width: " << device.memoryBusWidth << " bit" << std::endl;
         std::cout << "  Memory bandwidth: " << 2.0 * device.memoryClockRate * (device.memoryBusWidth / 8) / 1.0e6
                   << " GB/s" << std::endl;
     }
-}
 
-} // namespace cuda
+    return 0;
+}

@@ -34,8 +34,6 @@ cc_library(
 
 nvcc_test(
     name = "cuda_test",
-    srcs = [
-        "cuda_test.cc",
-    ],
+    srcs = ["cuda_test.cc"],
     deps = ["@gtest//:gtest_main"],
 )

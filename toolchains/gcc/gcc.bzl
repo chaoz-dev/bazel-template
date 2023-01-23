@@ -9,8 +9,9 @@ load(
 
 INCLUDE_DIRS = [
     "/usr/include",
-    "/usr/include/c++/11",
-    "/usr/lib/gcc/x86_64-linux-gnu/11/include/",
+    "/usr/include/x86_64-linux-gnu",
+    "/usr/lib/gcc/x86_64-linux-gnu/11/include",
+    "/usr/local/include",
 ]
 
 COMPILER_FLAGS = [

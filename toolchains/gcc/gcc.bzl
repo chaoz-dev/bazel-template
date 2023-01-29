@@ -8,13 +8,13 @@ load(
 )
 
 INCLUDE_DIRS = [
-    "/usr/include",
     "/usr/include/c++/11",
-    "/usr/include/c++/11/backward",
-    "/usr/include/x86_64-linux-gnu",
     "/usr/include/x86_64-linux-gnu/c++/11",
+    "/usr/include/c++/11/backward",
     "/usr/lib/gcc/x86_64-linux-gnu/11/include",
     "/usr/local/include",
+    "/usr/include/x86_64-linux-gnu",
+    "/usr/include",
 ]
 
 COMPILER_FLAGS = [

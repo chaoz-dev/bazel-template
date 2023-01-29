@@ -8,14 +8,19 @@ load(
 )
 
 INCLUDE_DIRS = [
-    "/usr/include",
-    "/usr/include/x86_64-linux-gnu",
+    "/usr/include/c++/11",
+    "/usr/include/x86_64-linux-gnu/c++/11",
+    "/usr/include/c++/11/backward",
+    "/usr/lib/llvm-14/include/c++/v1/",
     "/usr/lib/llvm-14/lib/clang/14.0.0/include",
     "/usr/local/include",
+    "/usr/include/x86_64-linux-gnu",
+    "/usr/include",
 ]
 
 COMPILER_FLAGS = [
     "-std=c++17",
+    "-stdlib=libc++",
     "-fno-omit-frame-pointer",
     # General warnings and errors.
     "-Wall",
@@ -38,46 +43,54 @@ COMPILER_FLAGS = [
 ]
 
 LINKER_FLAGS = [
-    "-lstdc++",
+    "-fuse-ld=lld",
+    "-rtlib=compiler-rt",
+    "-lc++",
+    "-lc++abi",
     "-lm",
 ]
 
+BIN_PATH = "/usr/lib/llvm-14/bin/"
 TOOL_PATHS = [
     tool_path(
-        name = "gcc",
-        path = "/usr/bin/clang",
-    ),
-    tool_path(
-        name = "ld",
-        path = "/usr/bin/ld",
-    ),
-    tool_path(
         name = "ar",
-        path = "/usr/bin/ar",
+        path = BIN_PATH + "llvm-ar",
     ),
     tool_path(
         name = "as",
-        path = "/usr/bin/as",
+        path = BIN_PATH + "llvm-as",
     ),
     tool_path(
         name = "cpp",
-        path = "/usr/bin/cpp",
+        path = BIN_PATH + "clang-cpp",
+    ),
+    tool_path(
+        name = "gcc",
+        path = BIN_PATH + "clang",
     ),
     tool_path(
         name = "gcov",
-        path = "/usr/bin/gcov",
+        path = BIN_PATH + "llvm-cov",
+    ),
+    tool_path(
+        name = "ld",
+        path = BIN_PATH + "lld",
     ),
     tool_path(
         name = "nm",
-        path = "/usr/bin/nm",
+        path = BIN_PATH + "llvm-nm",
+    ),
+    tool_path(
+        name = "objcopy",
+        path = BIN_PATH + "llvm-objcopy",
     ),
     tool_path(
         name = "objdump",
-        path = "/usr/bin/objdump",
+        path = BIN_PATH + "llvm-objdump",
     ),
     tool_path(
         name = "strip",
-        path = "/usr/bin/strip",
+        path = BIN_PATH + "llvm-strip",
     ),
 ]
 

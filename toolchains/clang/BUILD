@@ -18,7 +18,6 @@ cc_toolchain(
     linker_files = ":none",
     objcopy_files = ":none",
     strip_files = ":none",
-    tags = ["manual"],
     toolchain_config = ":clang_toolchain_config",
     toolchain_identifier = "clang-toolchain",
 )

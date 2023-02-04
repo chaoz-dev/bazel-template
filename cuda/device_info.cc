@@ -3,7 +3,7 @@
 #include <cuda_runtime.h>
 #include <iostream>
 
-int main(int argc, char* argv[])
+int main()
 {
     // Show CUDA version.
     int driver_version  = -1;
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
         std::cout << "  Device name: " << device.name << std::endl;
         std::cout << "  Compute capability: " << device.major << "." << device.minor << std::endl;
         std::cout << "  Device clock rate: " << device.clockRate / 1.0e3 << " MHz" << std::endl;
-        std::cout << "  Device memory: " << static_cast<float>(device.totalGlobalMem) / 1.0e9 << " GB" << std::endl;
+        std::cout << "  Device memory: " << static_cast<double>(device.totalGlobalMem) / 1.0e9 << " GB" << std::endl;
         std::cout << "  Memory clock rate: " << device.memoryClockRate / 1.0e3 << " MHz" << std::endl;
         std::cout << "  Memory bus width: " << device.memoryBusWidth << " bit" << std::endl;
         std::cout << "  Memory bandwidth: " << 2.0 * device.memoryClockRate * (device.memoryBusWidth / 8) / 1.0e6

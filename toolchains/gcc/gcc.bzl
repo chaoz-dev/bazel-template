@@ -19,31 +19,41 @@ INCLUDE_DIRS = [
 
 COMPILER_FLAGS = [
     "-std=c++17",
-    "-fno-omit-frame-pointer",
+    "-pthread",
     "-fno-canonical-system-headers",
     # General warnings and errors.
     "-Wall",
     "-Werror",
+    "-Wextra",
+    "-Wunused",
     # Specific warnings and errors.
-    "-Wcast-align",
+    "-Walloc-zero",
+    "-Wcast-align=strict",
     "-Wcast-qual",
     "-Wconversion",
+    "-Wdouble-promotion",
+    "-Wduplicated-branches",
+    "-Wduplicated-cond",
     "-Wfloat-equal",
     "-Wformat=2",
+    "-Wmultiple-inheritance",
+    "-Woverloaded-virtual",
     "-Wpointer-arith",
     "-Wshadow",
+    "-Wstringop-truncation",
+    "-Wsuggest-final-methods",
+    "-Wsuggest-final-types",
+    "-Wsuggest-override",
     "-Wuninitialized",
     "-Wunreachable-code",
-    "-Wunused-but-set-parameter",
     "-Wwrite-strings",
-    # Disabled warnings and errors.
-    "-Wno-free-nonheap-object",
-    "-Wno-noexcept-type",
 ]
 
 LINKER_FLAGS = [
+    "-pthread",
     "-lstdc++",
     "-lm",
+    "-lpthread",
 ]
 
 TOOL_PATHS = [

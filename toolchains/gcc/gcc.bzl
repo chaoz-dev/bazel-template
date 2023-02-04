@@ -21,6 +21,7 @@ COMPILER_FLAGS = [
     "-std=c++17",
     "-pthread",
     "-fno-canonical-system-headers",
+    "-fno-omit-frame-pointer",
     # General warnings and errors.
     "-Wall",
     "-Werror",

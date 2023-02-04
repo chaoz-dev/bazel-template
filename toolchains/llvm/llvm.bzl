@@ -172,7 +172,7 @@ def _impl(ctx):
         toolchain_identifier = "local",
     )
 
-clang_toolchain_config = rule(
+llvm_toolchain_config = rule(
     provides = [CcToolchainConfigInfo],
     implementation = _impl,
 )

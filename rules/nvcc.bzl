@@ -182,6 +182,7 @@ def nvcc_test(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts
         deps = deps + ["@cuda"],
         host_copts = host_copts,
         nvcc_copts = nvcc_copts + NVCC_COPTS,
+        testonly = True,
     )
 
     cc_test(
@@ -189,4 +190,5 @@ def nvcc_test(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts
         srcs = [nvcc_lib] if srcs else [],
         linkopts = CC_LINKOPTS,
         deps = deps + ["@cuda"],
+        testonly = True,
     )

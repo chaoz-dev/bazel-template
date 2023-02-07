@@ -74,6 +74,23 @@ COMPILER_FLAGS = [
     "-Wundefined-func-template",
     "-Wundefined-reinterpret-cast",
     "-Wvector-conversion",
+    # Disabled warnings.
+    "-Wno-cast-function-type",
+    "-Wno-deprecated-dynamic-exception-spec",
+    "-Wno-float-equal",
+    "-Wno-header-hygiene",
+    "-Wno-implicit-int-conversion",
+    "-Wno-implicit-int-float-conversion",
+    "-Wno-old-style-cast",
+    "-Wno-reserved-identifier",
+    "-Wno-reserved-macro-identifier",
+    "-Wno-shorten-64-to-32",
+    "-Wno-sign-conversion",
+    "-Wno-suggest-override",
+    "-Wno-suggest-destructor-override",
+    "-Wno-unreachable-code",
+    "-Wno-unreachable-code-return",
+    "-Wno-unused-parameter",
 ]
 
 LINKER_FLAGS = [

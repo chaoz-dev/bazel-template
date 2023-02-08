@@ -19,12 +19,14 @@ http_archive(
 
 http_archive(
     name = "com_github_google_glog",
+    sha256 = "122fb6b712808ef43fbf80f75c52a21c9760683dae470154f02bddfc61135022",
     strip_prefix = "glog-0.6.0",
     urls = ["https://github.com/google/glog/archive/v0.6.0.zip"],
 )
 
 http_archive(
     name = "com_github_google_googletest",
+    sha256 = "24564e3b712d3eb30ac9a85d92f7d720f60cc0173730ac166f27dda7fed76cb2",
     strip_prefix = "googletest-release-1.12.1",
     urls = ["https://github.com/google/googletest/archive/release-1.12.1.zip"],
 )

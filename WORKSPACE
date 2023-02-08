@@ -20,11 +20,11 @@ http_archive(
 http_archive(
     name = "com_github_google_glog",
     strip_prefix = "glog-0.6.0",
-    urls = ["https://github.com/google/glog/archive/refs/tags/v0.6.0.zip"],
+    urls = ["https://github.com/google/glog/archive/v0.6.0.zip"],
 )
 
 http_archive(
     name = "com_github_google_googletest",
     strip_prefix = "googletest-release-1.12.1",
-    urls = ["https://github.com/google/googletest/archive/refs/tags/release-1.12.1.zip"],
+    urls = ["https://github.com/google/googletest/archive/release-1.12.1.zip"],
 )

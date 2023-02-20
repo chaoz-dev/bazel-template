@@ -5,7 +5,8 @@ load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test", "cc_binary")
 HDR_FILES = [".h", ".hh", ".hpp", ".inc", ".inl", ".cuh", ".cu.hh"]
 SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
 
-CUDA_COMPUTE_CAPABILITIES = ["80","86"]
+# Adding support for Volta, Turing and Ampere Architecture
+CUDA_COMPUTE_CAPABILITIES = ["70","75","80","86"]
 CUDA_COMPUTE_CAPABILITIES_PTX = []
 
 NVCC_COPTS = [

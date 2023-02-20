@@ -1,7 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# register_toolchains("//toolchains/gcc:cc_toolchain")
-register_toolchains("//toolchains/llvm:cc_toolchain")
+register_toolchains("//toolchains/gcc:cc_toolchain")
+# register_toolchains("//toolchains/llvm:cc_toolchain")
 
 new_local_repository(
     name = "cuda",

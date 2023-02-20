@@ -7,7 +7,7 @@ SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
 
 # Adding support for Volta, Turing and Ampere Architecture
 CUDA_COMPUTE_CAPABILITIES = ["70","75","80","86"]
-CUDA_COMPUTE_CAPABILITIES_PTX = []
+CUDA_COMPUTE_CAPABILITIES_PTX = ["70","75","80","86"]
 
 NVCC_COPTS = [
     "--compile",

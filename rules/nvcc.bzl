@@ -1,13 +1,13 @@
 load("@bazel_tools//tools/cpp:toolchain_utils.bzl", "find_cpp_toolchain")
 load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "CPP_COMPILE_ACTION_NAME")
-load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test", "cc_binary")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 
 HDR_FILES = [".h", ".hh", ".hpp", ".inc", ".inl", ".cuh", ".cu.hh"]
 SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
 
 # Adding support for Volta, Turing and Ampere Architecture
-CUDA_COMPUTE_CAPABILITIES = ["70","75","80","86"]
-CUDA_COMPUTE_CAPABILITIES_PTX = ["70","75","80","86"]
+CUDA_COMPUTE_CAPABILITIES = ["70", "75", "80", "86"]
+CUDA_COMPUTE_CAPABILITIES_PTX = ["70", "75", "80", "86"]
 
 NVCC_COPTS = [
     "--compile",
@@ -55,12 +55,12 @@ def _host_copts(ctx):
 
 def _build_cuda_compute_capabilities(ctx):
     args = []
-    
+
     for i in CUDA_COMPUTE_CAPABILITIES_PTX:
-        args.append("-gencode=arch=compute_{},\"code=compute_{}\"".format(i,i))
+        args.append("-gencode=arch=compute_{},\"code=compute_{}\"".format(i, i))
 
     for i in CUDA_COMPUTE_CAPABILITIES:
-        args.append("-gencode=arch=compute_{},\"code=sm_{}\"".format(i,i))
+        args.append("-gencode=arch=compute_{},\"code=sm_{}\"".format(i, i))
 
     return args
 
@@ -112,7 +112,7 @@ def _nvcc_copts(ctx):
         ])
 
     for compute_capability in _build_cuda_compute_capabilities(ctx):
-        nvcc_copts.extend([compute_capability,])
+        nvcc_copts.extend([compute_capability])
 
     nvcc_copts += ctx.attr.nvcc_copts
     return nvcc_copts
@@ -219,7 +219,7 @@ def nvcc_binary(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_cop
         srcs = srcs,
         hdrs = hdrs,
         deps = deps + ["@cuda"],
-        host_copts = host_copts,
+        host_copts = host_copts + ["-DNVCC_BINARY"],
         nvcc_copts = nvcc_copts + NVCC_COPTS,
     )
 
@@ -229,5 +229,3 @@ def nvcc_binary(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_cop
         linkopts = CC_LINKOPTS,
         deps = deps + ["@cuda"],
     )
-
-

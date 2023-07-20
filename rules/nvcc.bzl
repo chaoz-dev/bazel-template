@@ -5,9 +5,19 @@ load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 HDR_FILES = [".h", ".hh", ".hpp", ".inc", ".inl", ".cuh", ".cu.hh"]
 SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
 
-# Adding support for Volta, Turing and Ampere Architecture
-CUDA_COMPUTE_CAPABILITIES = ["70", "75", "80", "86"]
-CUDA_COMPUTE_CAPABILITIES_PTX = ["70", "75", "80", "86"]
+COMPUTE_CAPABILITIES = [
+    # Volta
+    70,
+    # Turing
+    75,
+    # Ampere
+    80,
+    86,
+    # Ada
+    89,
+    # Hopper
+    90,
+]
 
 NVCC_COPTS = [
     "--compile",
@@ -52,17 +62,6 @@ def _host_copts(ctx):
     host_copts.append("-B/usr/bin/")
 
     return host_copts
-
-def _build_cuda_compute_capabilities(ctx):
-    args = []
-
-    for i in CUDA_COMPUTE_CAPABILITIES_PTX:
-        args.append("-gencode=arch=compute_{},\"code=compute_{}\"".format(i, i))
-
-    for i in CUDA_COMPUTE_CAPABILITIES:
-        args.append("-gencode=arch=compute_{},\"code=sm_{}\"".format(i, i))
-
-    return args
 
 def _nvcc_copts(ctx):
     nvcc_copts = [
@@ -111,8 +110,11 @@ def _nvcc_copts(ctx):
             cc_opt,
         ])
 
-    for compute_capability in _build_cuda_compute_capabilities(ctx):
-        nvcc_copts.extend([compute_capability])
+    for compute_capability in COMPUTE_CAPABILITIES:
+        nvcc_copts.extend([
+            "-gencode=arch=compute_{},code=compute_{}".format(compute_capability, compute_capability),
+            "-gencode=arch=compute_{},code=sm_{}".format(compute_capability, compute_capability),
+        ])
 
     nvcc_copts += ctx.attr.nvcc_copts
     return nvcc_copts

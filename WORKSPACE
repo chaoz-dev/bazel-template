@@ -1,7 +1,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-register_toolchains("//toolchains/gcc:cc_toolchain")
-# register_toolchains("//toolchains/llvm:cc_toolchain")
+# register_toolchains("//toolchains/gcc:cc_toolchain")
+register_toolchains("//toolchains/llvm:cc_toolchain")
 
 # Needed for glog.
 http_archive(
@@ -13,16 +13,16 @@ http_archive(
 
 http_archive(
     name = "com_github_google_glog",
-    sha256 = "122fb6b712808ef43fbf80f75c52a21c9760683dae470154f02bddfc61135022",
-    strip_prefix = "glog-0.6.0",
-    urls = ["https://github.com/google/glog/archive/v0.6.0.zip"],
+    sha256 = "1865da8c71dbdf89a8c6bc40cac9ea3fd01895e607d6a5f2d97643ca5b3a9412",
+    strip_prefix = "glog-chaoz-fork-v0.6.0",
+    urls = ["https://github.com/chaoz-dev/glog/archive/chaoz/fork/v0.6.0.zip"],
 )
 
 http_archive(
     name = "com_github_google_googletest",
-    sha256 = "24564e3b712d3eb30ac9a85d92f7d720f60cc0173730ac166f27dda7fed76cb2",
-    strip_prefix = "googletest-release-1.12.1",
-    urls = ["https://github.com/google/googletest/archive/release-1.12.1.zip"],
+    sha256 = "36ee3f0c8a6760db72d3ef79fe846c1c9120ed17884b46961fc9484f51717c88",
+    strip_prefix = "googletest-chaoz-fork-v1.13.0",
+    urls = ["https://github.com/chaoz-dev/googletest/archive/chaoz/fork/v1.13.0.zip"],
 )
 
 new_local_repository(

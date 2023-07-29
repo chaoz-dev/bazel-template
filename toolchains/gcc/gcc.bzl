@@ -24,7 +24,7 @@ COMPILER_FLAGS = [
     "-fno-omit-frame-pointer",
     # General warnings and errors.
     "-Wall",
-    # "-Werror",
+    "-Werror",
     "-Wextra",
     "-Wunused",
     # Specific warnings and errors.

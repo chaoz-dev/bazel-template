@@ -26,7 +26,7 @@ COMPILER_FLAGS = [
     "-Wall",
     "-Wconversion",
     "-Wdeprecated",
-    # "-Werror",
+    "-Werror",
     "-Wextra",
     "-Wformat",
     "-Wmost",

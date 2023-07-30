@@ -5,6 +5,8 @@ load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 HDR_FILES = [".cu.hh", ".cuh", ".h", ".hh", ".hpp", ".in", ".inc", ".inl"]
 SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
 
+BIN_DIR = "/usr/bin"
+
 COMPUTE_CAPABILITIES = [
     # Volta
     70,
@@ -65,7 +67,8 @@ def _host_copts(ctx):
     )
 
     host_copts += ctx.attr.host_copts
-    host_copts.append("-B/usr/bin/")
+
+    host_copts.append("-B{path}".format(path = BIN_DIR))
 
     return host_copts
 

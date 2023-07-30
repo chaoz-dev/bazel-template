@@ -4,6 +4,7 @@ filegroup(
     name = "nvcc",
     srcs = ["bin/nvcc"],
     data = [":toolchain"],
+    tags = ["manual"],
     visibility = ["//visibility:public"],
 )
 
@@ -16,6 +17,7 @@ filegroup(
     ]) + glob([
         "bin/*",
     ]),
+    tags = ["manual"],
     visibility = ["//visibility:public"],
 )
 

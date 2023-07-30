@@ -4,5 +4,5 @@ cc_library(
     name = "macros",
     hdrs = ["macros.hh"],
     visibility = ["//visibility:public"],
-    deps = ["@cuda"],
+    deps = ["//third_party/cuda"],
 )

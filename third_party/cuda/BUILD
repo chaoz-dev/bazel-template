@@ -1,5 +1,11 @@
 load("@//rules:nvcc.bzl", "nvcc_test")
 
+alias(
+    name = "cuda",
+    actual = "@cuda//:_cuda",
+    visibility = ["//visibility:public"],
+)
+
 filegroup(
     name = "nvcc",
     srcs = ["bin/nvcc"],
@@ -22,7 +28,7 @@ filegroup(
 )
 
 cc_library(
-    name = "cuda",
+    name = "_cuda",
     srcs = glob([
         "lib64/**/lib*.so",
         "include/**/*.h",

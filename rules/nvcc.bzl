@@ -186,7 +186,7 @@ def _nvcc_library(name, srcs, hdrs, deps, host_copts, nvcc_copts, testonly = Fal
         name = name,
         srcs = srcs,
         hdrs = hdrs,
-        deps = deps + ["@cuda"],
+        deps = deps + ["//third_party/cuda"],
         host_copts = host_copts + CC_COPTS,
         nvcc_copts = nvcc_copts + NVCC_COPTS,
         testonly = testonly,
@@ -209,7 +209,7 @@ def nvcc_library(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_co
         srcs = [nvcc_lib] if srcs else [],
         hdrs = hdrs,
         linkopts = CC_LINKOPTS,
-        deps = deps + ["@cuda"],
+        deps = deps + ["//third_party/cuda"],
     )
 
 def nvcc_test(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts = []):
@@ -229,7 +229,7 @@ def nvcc_test(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts
         name = name,
         srcs = [nvcc_lib_name] if srcs else [],
         linkopts = CC_LINKOPTS,
-        deps = deps + ["@cuda"],
+        deps = deps + ["//third_party/cuda"],
         testonly = True,
     )
 
@@ -249,5 +249,5 @@ def nvcc_binary(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_cop
         name = name,
         srcs = [nvcc_lib_name] if srcs else [],
         linkopts = CC_LINKOPTS,
-        deps = deps + ["@cuda"],
+        deps = deps + ["//third_party/cuda"],
     )

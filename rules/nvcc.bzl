@@ -27,7 +27,7 @@ CC_COPTS = [
 
 NVCC_COPTS = [
     "--compile",
-    "--std=c++17",
+    "--std=c++20",
     "--x",
     "cu",
 ]

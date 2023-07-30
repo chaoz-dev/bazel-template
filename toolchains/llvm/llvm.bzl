@@ -19,7 +19,7 @@ INCLUDE_DIRS = [
 ]
 
 COMPILER_FLAGS = [
-    "-std=c++17",
+    "-std=c++20",
     "-fno-omit-frame-pointer",
     # General warnings and errors.
     "-Wall",

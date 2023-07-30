@@ -21,8 +21,8 @@ filegroup(
 
 cc_library(
     name = "cuda",
-    srcs = glob(["lib64/**/lib*.so"]),
-    hdrs = glob([
+    srcs = glob([
+        "lib64/**/lib*.so",
         "include/**/*.h",
         "include/**/*.hpp",
         "include/**/*.inl",

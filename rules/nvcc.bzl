@@ -2,7 +2,7 @@ load("@bazel_tools//tools/cpp:toolchain_utils.bzl", "find_cpp_toolchain")
 load("@bazel_tools//tools/build_defs/cc:action_names.bzl", "CPP_COMPILE_ACTION_NAME")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 
-HDR_FILES = [".h", ".hh", ".hpp", ".inc", ".inl", ".cuh", ".cu.hh"]
+HDR_FILES = [".cu.hh", ".cuh", ".h", ".hh", ".hpp", ".in", ".inc", ".inl"]
 SRC_FILES = HDR_FILES + [".c", ".cc", ".cpp", ".cu", ".cu.cc"]
 
 COMPUTE_CAPABILITIES = [
@@ -17,6 +17,12 @@ COMPUTE_CAPABILITIES = [
     89,
     # Hopper
     90,
+]
+
+CC_COPTS = [
+    "-Wno-old-style-cast",
+    "-Wno-reserved-identifier",
+    "-Wno-overlength-strings",
 ]
 
 NVCC_COPTS = [
@@ -119,7 +125,7 @@ def _nvcc_copts(ctx):
     nvcc_copts += ctx.attr.nvcc_copts
     return nvcc_copts
 
-def _nvcc_library_impl(ctx):
+def _nvcc_library_rule_impl(ctx):
     if not ctx.attr.srcs:
         return [DefaultInfo()]
 
@@ -150,8 +156,8 @@ def _nvcc_library_impl(ctx):
 
     return [DefaultInfo(files = depset(outs))]
 
-_nvcc_library = rule(
-    implementation = _nvcc_library_impl,
+_nvcc_library_rule = rule(
+    implementation = _nvcc_library_rule_impl,
     fragments = ["cpp"],
     attrs = {
         "srcs": attr.label_list(allow_files = SRC_FILES),
@@ -172,6 +178,17 @@ _nvcc_library = rule(
     toolchains = ["@bazel_tools//tools/cpp:toolchain_type"],
 )
 
+def _nvcc_library(name, srcs, hdrs, deps, host_copts, nvcc_copts, test_only = False):
+    _nvcc_library_rule(
+        name = name,
+        srcs = srcs,
+        hdrs = hdrs,
+        deps = deps + ["@cuda"],
+        host_copts = host_copts + CC_COPTS,
+        nvcc_copts = nvcc_copts + NVCC_COPTS,
+        testonly = test_only,
+    )
+
 def nvcc_library(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts = []):
     nvcc_lib = "_nvcc_" + name
 
@@ -179,9 +196,9 @@ def nvcc_library(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_co
         name = nvcc_lib,
         srcs = srcs,
         hdrs = hdrs,
-        deps = deps + ["@cuda"],
+        deps = deps,
         host_copts = host_copts,
-        nvcc_copts = nvcc_copts + NVCC_COPTS,
+        nvcc_copts = nvcc_copts,
     )
 
     cc_library(
@@ -193,41 +210,41 @@ def nvcc_library(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_co
     )
 
 def nvcc_test(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts = []):
-    nvcc_lib = "_nvcc_" + name
+    nvcc_lib_name = "_nvcc_" + name
 
     _nvcc_library(
-        name = nvcc_lib,
+        name = nvcc_lib_name,
         srcs = srcs,
         hdrs = hdrs,
-        deps = deps + ["@cuda"],
+        deps = deps,
         host_copts = host_copts,
-        nvcc_copts = nvcc_copts + NVCC_COPTS,
-        testonly = True,
+        nvcc_copts = nvcc_copts,
+        test_only = True,
     )
 
     cc_test(
         name = name,
-        srcs = [nvcc_lib] if srcs else [],
+        srcs = [nvcc_lib_name] if srcs else [],
         linkopts = CC_LINKOPTS,
         deps = deps + ["@cuda"],
         testonly = True,
     )
 
 def nvcc_binary(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts = []):
-    nvcc_lib = "_nvcc_" + name
+    nvcc_lib_name = "_nvcc_" + name
 
     _nvcc_library(
-        name = nvcc_lib,
+        name = nvcc_lib_name,
         srcs = srcs,
         hdrs = hdrs,
-        deps = deps + ["@cuda"],
-        host_copts = host_copts + ["-DNVCC_BINARY"],
-        nvcc_copts = nvcc_copts + NVCC_COPTS,
+        deps = deps,
+        host_copts = host_copts,
+        nvcc_copts = nvcc_copts,
     )
 
     cc_binary(
         name = name,
-        srcs = [nvcc_lib] if srcs else [],
+        srcs = [nvcc_lib_name] if srcs else [],
         linkopts = CC_LINKOPTS,
         deps = deps + ["@cuda"],
     )

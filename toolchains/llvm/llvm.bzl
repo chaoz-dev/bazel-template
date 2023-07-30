@@ -20,7 +20,6 @@ INCLUDE_DIRS = [
 
 COMPILER_FLAGS = [
     "-std=c++17",
-    "-stdlib=libc++",
     "-fno-omit-frame-pointer",
     # General warnings and errors.
     "-Wall",
@@ -79,8 +78,7 @@ COMPILER_FLAGS = [
 LINKER_FLAGS = [
     "-fuse-ld=lld",
     "-rtlib=compiler-rt",
-    "-lc++",
-    "-lc++abi",
+    "-lstdc++",
     "-lm",
 ]
 

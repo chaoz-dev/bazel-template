@@ -181,7 +181,7 @@ _nvcc_library_rule = rule(
     toolchains = ["@bazel_tools//tools/cpp:toolchain_type"],
 )
 
-def _nvcc_library(name, srcs, hdrs, deps, host_copts, nvcc_copts, test_only = False):
+def _nvcc_library(name, srcs, hdrs, deps, host_copts, nvcc_copts, testonly = False):
     _nvcc_library_rule(
         name = name,
         srcs = srcs,
@@ -189,7 +189,7 @@ def _nvcc_library(name, srcs, hdrs, deps, host_copts, nvcc_copts, test_only = Fa
         deps = deps + ["@cuda"],
         host_copts = host_copts + CC_COPTS,
         nvcc_copts = nvcc_copts + NVCC_COPTS,
-        testonly = test_only,
+        testonly = testonly,
     )
 
 def nvcc_library(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts = []):
@@ -222,7 +222,7 @@ def nvcc_test(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_copts
         deps = deps,
         host_copts = host_copts,
         nvcc_copts = nvcc_copts,
-        test_only = True,
+        testonly = True,
     )
 
     cc_test(
@@ -241,7 +241,7 @@ def nvcc_binary(name, srcs = [], hdrs = [], deps = [], host_copts = [], nvcc_cop
         srcs = srcs,
         hdrs = hdrs,
         deps = deps,
-        host_copts = host_copts,
+        host_copts = host_copts + ["-DNVCC_BINARY"],
         nvcc_copts = nvcc_copts,
     )
 

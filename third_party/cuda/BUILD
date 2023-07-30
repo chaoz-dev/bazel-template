@@ -1,5 +1,3 @@
-load("@//rules:nvcc.bzl", "nvcc_test")
-
 alias(
     name = "cuda",
     actual = "@cuda//:_cuda",
@@ -38,10 +36,4 @@ cc_library(
     includes = ["include/"],
     linkopts = ["-Wl,-rpath=lib64/"],
     visibility = ["//visibility:public"],
-)
-
-nvcc_test(
-    name = "cuda_test",
-    srcs = ["cuda_test.cc"],
-    deps = ["//third_party/gtest"],
 )

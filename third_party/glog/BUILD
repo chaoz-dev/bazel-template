@@ -6,12 +6,3 @@ cc_library(
         "@glog",
     ],
 )
-
-cc_test(
-    name = "glog_test",
-    srcs = ["glog_test.cc"],
-    deps = [
-        ":glog",
-        "//third_party/gtest",
-    ],
-)

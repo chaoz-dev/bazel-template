@@ -1,0 +1,25 @@
+From aec56ecc4c76b5dc7413d95c7e34fa558a21ab21 Mon Sep 17 00:00:00 2001
+From: Lance Zhang <lance.c.zhang@gmail.com>
+Date: Fri, 28 Jul 2023 04:11:15 -0400
+Subject: [PATCH] [googletest][BUILD] Ignore compile warnings.
+
+---
+ BUILD.bazel | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/BUILD.bazel b/BUILD.bazel
+index ac62251e..a48de03b 100644
+--- a/BUILD.bazel
++++ b/BUILD.bazel
+@@ -102,7 +102,10 @@ cc_library(
+         ":qnx": [],
+         ":windows": [],
+         "//conditions:default": ["-pthread"],
+-    }),
++    }) + [
++        "-Wno-error",
++        "-w",
++    ],
+     defines = select({
+         ":has_absl": ["GTEST_HAS_ABSL=1"],
+         "//conditions:default": [],

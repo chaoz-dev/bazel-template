@@ -1,0 +1,116 @@
+From e4fe9f377b13f7373c7ff1e26371ada46a2b4d6b Mon Sep 17 00:00:00 2001
+From: Lance Zhang <lance.c.zhang@gmail.com>
+Date: Fri, 28 Jul 2023 04:15:34 -0400
+Subject: [PATCH] [gflags][BUILD] Ignore compile warnings.
+
+---
+ bazel/gflags.bzl | 53 +++++++++++++++++++++++++-----------------------
+ 1 file changed, 28 insertions(+), 25 deletions(-)
+
+diff --git a/bazel/gflags.bzl b/bazel/gflags.bzl
+index 533fd61..daa0556 100644
+--- a/bazel/gflags.bzl
++++ b/bazel/gflags.bzl
+@@ -1,46 +1,46 @@
+ # ------------------------------------------------------------------------------
+ # Add native rules to configure source files
+-def gflags_sources(namespace=["google", "gflags"]):
++def gflags_sources(namespace = ["google", "gflags"]):
+     native.genrule(
+         name = "gflags_declare_h",
+         srcs = ["src/gflags_declare.h.in"],
+         outs = ["gflags_declare.h"],
+-        cmd  = ("awk '{ " +
+-                "gsub(/@GFLAGS_NAMESPACE@/, \"" + namespace[0] + "\"); " +
+-                "gsub(/@(HAVE_STDINT_H|HAVE_SYS_TYPES_H|HAVE_INTTYPES_H|GFLAGS_INTTYPES_FORMAT_C99)@/, \"1\"); " +
+-                "gsub(/@([A-Z0-9_]+)@/, \"0\"); " +
+-                "print; }' $(<) > $(@)")
++        cmd = ("awk '{ " +
++               "gsub(/@GFLAGS_NAMESPACE@/, \"" + namespace[0] + "\"); " +
++               "gsub(/@(HAVE_STDINT_H|HAVE_SYS_TYPES_H|HAVE_INTTYPES_H|GFLAGS_INTTYPES_FORMAT_C99)@/, \"1\"); " +
++               "gsub(/@([A-Z0-9_]+)@/, \"0\"); " +
++               "print; }' $(<) > $(@)"),
+     )
+     gflags_ns_h_files = []
+     for ns in namespace[1:]:
+         gflags_ns_h_file = "gflags_{}.h".format(ns)
+         native.genrule(
+-            name = gflags_ns_h_file.replace('.', '_'),
++            name = gflags_ns_h_file.replace(".", "_"),
+             srcs = ["src/gflags_ns.h.in"],
+             outs = [gflags_ns_h_file],
+-            cmd  = ("awk '{ " +
+-                    "gsub(/@ns@/, \"" + ns + "\"); " +
+-                    "gsub(/@NS@/, \"" + ns.upper() + "\"); " +
+-                    "print; }' $(<) > $(@)")
++            cmd = ("awk '{ " +
++                   "gsub(/@ns@/, \"" + ns + "\"); " +
++                   "gsub(/@NS@/, \"" + ns.upper() + "\"); " +
++                   "print; }' $(<) > $(@)"),
+         )
+         gflags_ns_h_files.append(gflags_ns_h_file)
+     native.genrule(
+         name = "gflags_h",
+         srcs = ["src/gflags.h.in"],
+         outs = ["gflags.h"],
+-        cmd  = ("awk '{ " +
+-                "gsub(/@GFLAGS_ATTRIBUTE_UNUSED@/, \"\"); " +
+-                "gsub(/@INCLUDE_GFLAGS_NS_H@/, \"" + '\n'.join(["#include \\\"gflags/{}\\\"".format(hdr) for hdr in gflags_ns_h_files]) + "\"); " +
+-                "print; }' $(<) > $(@)")
++        cmd = ("awk '{ " +
++               "gsub(/@GFLAGS_ATTRIBUTE_UNUSED@/, \"\"); " +
++               "gsub(/@INCLUDE_GFLAGS_NS_H@/, \"" + "\n".join(["#include \\\"gflags/{}\\\"".format(hdr) for hdr in gflags_ns_h_files]) + "\"); " +
++               "print; }' $(<) > $(@)"),
+     )
+     native.genrule(
+         name = "gflags_completions_h",
+         srcs = ["src/gflags_completions.h.in"],
+         outs = ["gflags_completions.h"],
+-        cmd  = "awk '{ gsub(/@GFLAGS_NAMESPACE@/, \"" + namespace[0] + "\"); print; }' $(<) > $(@)"
++        cmd = "awk '{ gsub(/@GFLAGS_NAMESPACE@/, \"" + namespace[0] + "\"); print; }' $(<) > $(@)",
+     )
+     hdrs = [":gflags_h", ":gflags_declare_h", ":gflags_completions_h"]
+-    hdrs.extend([':' + hdr.replace('.', '_') for hdr in gflags_ns_h_files])
++    hdrs.extend([":" + hdr.replace(".", "_") for hdr in gflags_ns_h_files])
+     srcs = [
+         "src/config.h",
+         "src/gflags.cc",
+@@ -59,7 +59,7 @@ def gflags_sources(namespace=["google", "gflags"]):
+ 
+ # ------------------------------------------------------------------------------
+ # Add native rule to build gflags library
+-def gflags_library(hdrs=[], srcs=[], threads=1):
++def gflags_library(hdrs = [], srcs = [], threads = 1):
+     name = "gflags"
+     copts = [
+         "-DGFLAGS_BAZEL_BUILD",
+@@ -82,7 +82,10 @@ def gflags_library(hdrs=[], srcs=[], threads=1):
+             "-DHAVE_FNMATCH_H",
+             "-DHAVE_PTHREAD",
+         ],
+-    })
++    }) + [
++        "-Wno-error",
++        "-w",
++    ]
+     linkopts = []
+     if threads:
+         linkopts += select({
+@@ -93,11 +96,11 @@ def gflags_library(hdrs=[], srcs=[], threads=1):
+         name += "_nothreads"
+         copts += ["-DNO_THREADS"]
+     native.cc_library(
+-        name       = name,
+-        hdrs       = hdrs,
+-        srcs       = srcs,
+-        copts      = copts,
+-        linkopts   = linkopts,
++        name = name,
++        hdrs = hdrs,
++        srcs = srcs,
++        copts = copts,
++        linkopts = linkopts,
+         visibility = ["//visibility:public"],
+-        include_prefix = 'gflags'
++        include_prefix = "gflags",
+     )

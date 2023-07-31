@@ -1,0 +1,51 @@
+From ea925cf53957840826d2b4a23989ba06e73caa03 Mon Sep 17 00:00:00 2001
+From: Lance Zhang <lance.c.zhang@gmail.com>
+Date: Fri, 28 Jul 2023 04:15:21 -0400
+Subject: [PATCH] [glog][BUILD] Ignore compile warnings.
+
+---
+ bazel/glog.bzl | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/bazel/glog.bzl b/bazel/glog.bzl
+index 4208d9e..b37b003 100644
+--- a/bazel/glog.bzl
++++ b/bazel/glog.bzl
+@@ -152,17 +152,18 @@ def glog_library(namespace = "google", with_gflags = 1, **kwargs):
+             "src/utilities.cc",
+             "src/utilities.h",
+             "src/vlog_is_on.cc",
+-        ] + select({
+-            "@bazel_tools//src/conditions:windows": windows_only_srcs,
+-            "//conditions:default": [],
+-        }),
+-        hdrs = [
+             "src/glog/log_severity.h",
+             "src/glog/platform.h",
+             ":logging_h",
+             ":raw_logging_h",
+             ":stl_logging_h",
+             ":vlog_is_on_h",
++        ] + select({
++            "@bazel_tools//src/conditions:windows": windows_only_srcs,
++            "//conditions:default": [],
++        }),
++        includes = [
++            "src",
+         ],
+         strip_include_prefix = "src",
+         defines = select({
+@@ -188,8 +189,11 @@ def glog_library(namespace = "google", with_gflags = 1, **kwargs):
+             }) +
+             select({
+                 ":clang-cl": clang_cl_only_copts,
+-                "//conditions:default": []
+-            }),
++                "//conditions:default": [],
++            }) + [
++                "-Wno-error",
++                "-w",
++            ],
+         deps = gflags_deps + select({
+             "@bazel_tools//src/conditions:windows": [":strip_include_prefix_hack"],
+             "//conditions:default": [],

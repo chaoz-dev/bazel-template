@@ -76,7 +76,6 @@ COMPILER_FLAGS = [
 ]
 
 LINKER_FLAGS = [
-    "-fuse-ld=lld",
     "-rtlib=compiler-rt",
     "-lstdc++",
     "-lm",

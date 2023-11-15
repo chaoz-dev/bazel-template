@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cuda_runtime.h>
-#include <iostream>
+#include <glog/logging.h>
 
 namespace cuda
 {
@@ -14,9 +14,9 @@ inline void cuda_assert(cudaError_t err_n, bool terminate, const char* filename,
         return;
     }
 
-    std::cerr << filename << ": " << lineno << std::endl
-              << cudaGetErrorName(err_n) << ": " << std::endl
-              << cudaGetErrorString(err_n) << std::endl;
+    LOG(ERROR) << filename << ": " << lineno << std::endl
+               << cudaGetErrorName(err_n) << ": " << std::endl
+               << cudaGetErrorString(err_n);
 
     if (terminate)
     {

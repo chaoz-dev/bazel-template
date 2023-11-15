@@ -29,6 +29,11 @@ cc_library(
     name = "_cuda",
     srcs = glob([
         "lib64/**/lib*.so",
+    ]),
+    hdrs = glob([
+        "include/nv/**/*",
+        "include/cuda/**/*",
+        "include/cub/**/*",
         "include/**/*.h",
         "include/**/*.hpp",
         "include/**/*.inl",
